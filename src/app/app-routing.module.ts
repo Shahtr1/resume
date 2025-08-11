@@ -45,6 +45,11 @@ const routes: Routes = [
         (m) => m.ProductsNgrxModule,
       ),
   },
+  {
+    path: 'view-api',
+    loadComponent: () =>
+      import('./features/view-api/view-api.component').then((m) => m.ViewApi),
+  },
   { path: '**', redirectTo: 'dashboard' },
 ];
 

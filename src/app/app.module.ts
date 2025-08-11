@@ -16,6 +16,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { ProductsNgrxModule } from './features/ngrx-demo/products-ngrx.module';
 import { HasRoleDirective } from './shared/directives/has-role.directive';
 import { FormsModule } from '@angular/forms';
+import { SlotCardComponent } from './features/view-api/slot-card.component';
 
 const devImports = [];
 if (isDevMode()) {
