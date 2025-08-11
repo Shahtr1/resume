@@ -1,25 +1,50 @@
-<nav class="navbar navbar-dark bg-dark px-3">
-  <a class="navbar-brand" routerLink="/">Resume NG</a>
+<div class="app-layout d-flex">
+  <!-- LEFT SIDEBAR -->
+  <aside class="sidebar bg-dark text-light d-flex flex-column">
+    <a class="navbar-brand px-3 py-3 text-light text-decoration-none" routerLink="/">Resume NG</a>
 
-  <a class="nav-link text-light" routerLink="/dashboard" routerLinkActive="active bg-secondary rounded px-2"
-    [routerLinkActiveOptions]="{ exact: true }">Dashboard</a>
+    <!-- Scrollable nav area -->
+    <nav class="nav nav-pills flex-column px-2 sidebar-nav">
+      <a class="nav-link text-light" routerLink="/dashboard" routerLinkActive="active bg-secondary rounded"
+        [routerLinkActiveOptions]="{ exact: true }">Dashboard</a>
 
-  <a class="nav-link text-light" routerLink="/cd-demo" routerLinkActive="active bg-secondary rounded px-2">Change
-    Detection</a>
+      <a class="nav-link text-light" routerLink="/cd-demo" routerLinkActive="active bg-secondary rounded">Change
+        Detection</a>
 
-  <a class="nav-link text-light" routerLink="/forms/template"
-    routerLinkActive="active bg-secondary rounded px-2">Template Form</a>
+      <a class="nav-link text-light" routerLink="/forms/template"
+        routerLinkActive="active bg-secondary rounded">Template Form</a>
 
-  <a class="nav-link text-light" routerLink="/forms/reactive"
-    routerLinkActive="active bg-secondary rounded px-2">Reactive Form</a>
+      <a class="nav-link text-light" routerLink="/forms/reactive"
+        routerLinkActive="active bg-secondary rounded">Reactive Form</a>
 
-  <a class="nav-link text-light" routerLink="/state-demo" routerLinkActive="active bg-secondary rounded px-2">NGXS
-    Demo</a>
+      <a class="nav-link text-light" routerLink="/state-demo" routerLinkActive="active bg-secondary rounded">NGXS
+        Demo</a>
 
-  <a class="nav-link text-light" routerLink="/ngrx-demo" routerLinkActive="active bg-secondary rounded px-2">NgRx
-    Demo</a>
-</nav>
+      <a class="nav-link text-light" routerLink="/ngrx-demo" routerLinkActive="active bg-secondary rounded">NgRx
+        Demo</a>
 
-<div class="container mt-3">
-  <router-outlet></router-outlet>
+      <!-- any (default) -->
+      <button class="btn btn-outline-secondary" *hasRole="'manager'">Manager Button</button>
+
+      <!-- all -->
+      <div class="alert alert-warning mt-2" *hasRole="['user','admin']; mode: 'all'">
+        Visible only if user has BOTH user and admin.
+      </div>
+    </nav>
+
+    <!-- Footer area (stays pinned) -->
+    <div class="sidebar-footer p-3 border-top border-secondary">
+      <label class="small d-block mb-1">Roles:</label>
+      <select class="form-select form-select-sm" [(ngModel)]="selectedRoles" (ngModelChange)="auth.setRoles($event)">
+        <option *ngFor="let r of roles" [ngValue]="r">
+          {{ r.join(',') }}
+        </option>
+      </select>
+    </div>
+  </aside>
+
+  <!-- MAIN CONTENT -->
+  <main class="content flex-grow-1 p-3">
+    <router-outlet></router-outlet>
+  </main>
 </div>

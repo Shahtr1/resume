@@ -14,6 +14,8 @@ import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { ProductsNgrxModule } from './features/ngrx-demo/products-ngrx.module';
+import { HasRoleDirective } from './shared/directives/has-role.directive';
+import { FormsModule } from '@angular/forms';
 
 const devImports = [];
 if (isDevMode()) {
@@ -43,6 +45,9 @@ if (isDevMode()) {
     EffectsModule.forRoot([]),
     StoreDevtoolsModule.instrument({ maxAge: 25 }),
     ProductsNgrxModule,
+
+    HasRoleDirective,
+    FormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

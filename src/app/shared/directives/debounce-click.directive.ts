@@ -9,6 +9,11 @@ import {
 } from '@angular/core';
 import { debounceTime, fromEvent, Subscription } from 'rxjs';
 
+// Attribute directives (regular directives)
+
+// They sit on an existing element and can have:
+// **@Input()**s → bind with square brackets: [someInput]="...".
+// **@Output()**s → listen with parentheses: (someOutput)="...".
 @Directive({
   selector: '[debounceClick]',
   standalone: true,
