@@ -1,11 +1,25 @@
 <nav class="navbar navbar-dark bg-dark px-3">
   <a class="navbar-brand" routerLink="/">Resume NG</a>
-  <a class="nav-link text-light" routerLink="/dashboard">Dashboard</a>
-  <a class="nav-link text-light" routerLink="/cd-demo">Change Detection</a>
-  <a class="nav-link text-light" routerLink="/forms/template">Template Form</a>
-  <a class="nav-link text-light" routerLink="/forms/reactive">Reactive Form</a>
-  <a class="nav-link text-light" routerLink="/state-demo">NGXS Demo</a>
+
+  <a class="nav-link text-light" routerLink="/dashboard" routerLinkActive="active bg-secondary rounded px-2"
+    [routerLinkActiveOptions]="{ exact: true }">Dashboard</a>
+
+  <a class="nav-link text-light" routerLink="/cd-demo" routerLinkActive="active bg-secondary rounded px-2">Change
+    Detection</a>
+
+  <a class="nav-link text-light" routerLink="/forms/template"
+    routerLinkActive="active bg-secondary rounded px-2">Template Form</a>
+
+  <a class="nav-link text-light" routerLink="/forms/reactive"
+    routerLinkActive="active bg-secondary rounded px-2">Reactive Form</a>
+
+  <a class="nav-link text-light" routerLink="/state-demo" routerLinkActive="active bg-secondary rounded px-2">NGXS
+    Demo</a>
+
+  <a class="nav-link text-light" routerLink="/ngrx-demo" routerLinkActive="active bg-secondary rounded px-2">NgRx
+    Demo</a>
 </nav>
+
 <div class="container mt-3">
   <router-outlet></router-outlet>
 </div>

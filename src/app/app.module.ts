@@ -9,7 +9,11 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgxsModule } from '@ngxs/store';
 import { NgxsLoggerPluginModule } from '@ngxs/logger-plugin';
 import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
-import { ProductsState } from './state/products.state';
+import { ProductsState } from './state-ngxs/products-ngxs.state';
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { ProductsNgrxModule } from './features/ngrx-demo/products-ngrx.module';
 
 const devImports = [];
 if (isDevMode()) {
@@ -28,9 +32,17 @@ if (isDevMode()) {
     HttpClientModule,
     AppRoutingModule,
     ...devImports, // safe: computed before the decorator runs
+
+    // NgXS
     NgxsModule.forRoot([ProductsState]),
     NgxsLoggerPluginModule.forRoot({ collapsed: true, disabled: false }),
     NgxsReduxDevtoolsPluginModule.forRoot(),
+
+    // NgRX
+    StoreModule.forRoot({}, {}), // root (empty for now)
+    EffectsModule.forRoot([]),
+    StoreDevtoolsModule.instrument({ maxAge: 25 }),
+    ProductsNgrxModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

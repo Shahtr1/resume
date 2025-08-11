@@ -34,8 +34,15 @@ const routes: Routes = [
   {
     path: 'state-demo',
     loadComponent: () =>
-      import('./features/state-demo/products-browser.component').then(
+      import('./features/ngxs-demo/products-browser-ngxs.component').then(
         (m) => m.ProductsBrowserComponent,
+      ),
+  },
+  {
+    path: 'ngrx-demo',
+    loadChildren: () =>
+      import('./features/ngrx-demo/products-ngrx.module').then(
+        (m) => m.ProductsNgrxModule,
       ),
   },
   { path: '**', redirectTo: 'dashboard' },

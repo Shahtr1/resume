@@ -2,7 +2,11 @@ import { Action, Selector, State, StateContext } from '@ngxs/store';
 import { Product } from '../core/in-memory-data.service';
 import { Injectable } from '@angular/core';
 import { ApiService } from '../core/api.service';
-import { LoadProducts, SaveProduct, SelectProduct } from './products.actions';
+import {
+  LoadProducts,
+  SaveProduct,
+  SelectProduct,
+} from './products-ngxs.actions';
 import { patch, updateItem } from '@ngxs/store/operators';
 import { tap } from 'rxjs';
 

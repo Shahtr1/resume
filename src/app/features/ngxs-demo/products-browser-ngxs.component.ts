@@ -14,13 +14,13 @@ import {
   LoadProducts,
   SaveProduct,
   SelectProduct,
-} from 'src/app/state/products.actions';
-import { ProductsState } from 'src/app/state/products.state';
+} from 'src/app/state-ngxs/products-ngxs.actions';
+import { ProductsState } from 'src/app/state-ngxs/products-ngxs.state';
 
 @Component({
   standalone: true,
   selector: 'app-products-browser',
-  templateUrl: './products-browser.component.html',
+  templateUrl: './products-browser-ngxs.component.html',
   imports: [CommonModule, ReactiveFormsModule, ToInrPipe],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
