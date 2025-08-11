@@ -31,7 +31,13 @@ const routes: Routes = [
         (m) => m.ReactiveFormComponent,
       ),
   },
-
+  {
+    path: 'state-demo',
+    loadComponent: () =>
+      import('./features/state-demo/products-browser.component').then(
+        (m) => m.ProductsBrowserComponent,
+      ),
+  },
   { path: '**', redirectTo: 'dashboard' },
 ];
 

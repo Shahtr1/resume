@@ -6,6 +6,10 @@ import { AppComponent } from './app.component';
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { InMemoryDataService } from './core/in-memory-data.service';
 import { HttpClientModule } from '@angular/common/http';
+import { NgxsModule } from '@ngxs/store';
+import { NgxsLoggerPluginModule } from '@ngxs/logger-plugin';
+import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
+import { ProductsState } from './state/products.state';
 
 const devImports = [];
 if (isDevMode()) {
@@ -24,6 +28,9 @@ if (isDevMode()) {
     HttpClientModule,
     AppRoutingModule,
     ...devImports, // safe: computed before the decorator runs
+    NgxsModule.forRoot([ProductsState]),
+    NgxsLoggerPluginModule.forRoot({ collapsed: true, disabled: false }),
+    NgxsReduxDevtoolsPluginModule.forRoot(),
   ],
   providers: [],
   bootstrap: [AppComponent],
