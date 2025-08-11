@@ -24,6 +24,8 @@ type Mode = 'any' | 'all';
 // That’s why we write *hasRole:
 // we want Angular to treat the host as a template and let the directive decide whether to create/clear it.
 
+// When the *hasRole directive is used, Angular expands it into an <ng-template> and passes control to the HasRoleDirective.
+
 @Directive({
   selector: '[hasRole]',
   standalone: true,
@@ -37,7 +39,18 @@ export class HasRoleDirective implements OnInit, OnDestroy {
 
   constructor(
     private tpl: TemplateRef<unknown>,
+    //  What it is:
+
+    // A reference to the template that the directive is applied to.
+    // This is the content inside the directive's host element (e.g., the HTML inside the *hasRole directive).
+    // Why it's needed:
+
+    // The directive uses this TemplateRef to dynamically create or remove the template's content from the DOM based on the user's roles.
     private vcr: ViewContainerRef,
+    // What it is:
+
+    // A container that allows the directive to add or remove views (DOM elements) dynamically.
+    // It acts as a placeholder in the DOM where the directive can insert or clear the content of the TemplateRef.
     private auth: AuthService,
   ) {}
 
