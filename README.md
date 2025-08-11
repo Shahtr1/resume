@@ -40,3 +40,8 @@ What this does
   - an `async` pipe emits, or
   - you call `markForCheck()` manually.
     This sets us up to discuss immutable patterns and RxJS streams the right way.
+
+- Click spam? `exhaustMap`
+- Route/search that changes often? `switchMap`
+- Must keep order (writes)? `concatMap`
+- Need parallelism? `mergeMap`
