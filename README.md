@@ -1,27 +1,42 @@
-# ResumeNg
+1. Scaffold (Angular 15)
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 15.2.11.
+```bash
+# Use Angular CLI v15
+npx -p @angular/cli@15 ng new resume-ng --routing --style=scss --strict
 
-## Development server
+cd resume-ng
+```
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+Why these flags
 
-## Code scaffolding
+- `@angular/cli@15`: locks us to Angular 15 (you asked to stay pre‑signals).
+- `--routing`: creates a router setup from day 1 so we can demo lazy loading, guards, etc.
+- `--style=scss`: SCSS is friendlier for variables & mixins when we scale examples.
+- `--strict`: enables strict TS and strict template checks. Concretely:
+  - `tsconfig.json` gets `strict: true`, plus `noImplicitAny`, `strictNullChecks`, etc.
+  - `angularCompilerOptions.strictTemplates: true` → the template type checker will catch unsafe bindings early. This is vital when we write custom directives/pipes and advanced forms.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+This gives us strict TypeScript, Jasmine/Karma tests wired, and routing.
 
-## Build
+2. Add code‑quality & helper tooling
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+```bash
+# ESLint for Angular 15
+ng add @angular-eslint/schematics@15
 
-## Running unit tests
+# (Optional) Git hooks to keep things neat
+npm i -D husky lint-staged
+npx husky install
+```
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+What this does
 
-## Running end-to-end tests
+- `@angular-eslint` replaces old TSLint rules with ESLint tailored for Angular v15 projects (templates + TS). It scaffolds an `.eslintrc.json` with sensible Angular rules (e.g., selector conventions, lifecycle hook ordering, etc.).
+- Prettier enforces format consistency. The sort‑imports plugin keeps imports deterministic, reducing noisy diffs.
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+- `OnPush` change detection: we’ll use this to demo performance and correctness later. OnPush re-checks when:
+  - an `@Input()` reference changes,
+  - an event fires in the component,
+  - an `async` pipe emits, or
+  - you call `markForCheck()` manually.
+    This sets us up to discuss immutable patterns and RxJS streams the right way.
