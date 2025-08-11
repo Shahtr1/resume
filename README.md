@@ -45,3 +45,54 @@ What this does
 - Route/search that changes often? `switchMap`
 - Must keep order (writes)? `concatMap`
 - Need parallelism? `mergeMap`
+
+## Mental Model of Angular terms
+
+- Router
+  The service that navigates (`router.navigate(...)`), knows the current URL (`router.url`).
+
+- Route (config)
+  The static objects you put in `routes = [{ path: 'users/:id', component: UserCmp, data: { title: 'Users' } }]`.
+
+- ActivatedRoute (live, observable)
+  The runtime route for the component currently displayed. It exposes streams that update when the URL/params change while the component stays mounted.
+  Key bits:
+  - `paramMap`, `queryParamMap`, `fragment`, `url`, `data` → Observables
+  - `snapshot` → a one-time, immutable capture
+  - `parent`, `firstChild`, `pathFromRoot` → walk the route tree
+
+  Use ActivatedRoute (observables) when the same component can stay alive while the URL changes (e.g., `/users/1` → `/users/2` with the same UserComponent).
+
+  ```ts
+  // Angular 15+
+  constructor(private route: ActivatedRoute) {}
+
+  id$ = this.route.paramMap.pipe(
+    map(p => p.get('id')),
+    distinctUntilChanged()
+  );
+
+  // or one-time read of current value if you truly don't expect it to change:
+  const id = this.route.snapshot.paramMap.get('id'); // beware of reuse!
+  ```
+
+- ActivatedRouteSnapshot (frozen picture)
+  An immutable “photo” of the route at a point in time. It doesn’t update.
+
+- RouterState / RouterStateSnapshot
+  Like above, but for the whole tree of routes, not just one node.
+
+In guards/resolvers
+
+Angular hands you snapshots:
+
+```ts
+// CanActivate (class or functional)
+canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+  const mustBeAdmin = route.data['adminOnly'] === true;
+  return mustBeAdmin ? this.auth.isAdmin$ : true;
+}
+
+// Resolver
+resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) { ... }
+```
