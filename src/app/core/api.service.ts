@@ -61,3 +61,18 @@ export class ApiService {
     return this.http.post('/api/contacts', payload);
   }
 }
+
+// How shareReplay Works with Caching
+// The shareReplay(1) operator is used to cache the latest result of the observable and share it with all subscribers. Here's how it works in this context:
+
+// Caching the Latest Result:
+
+// When the HTTP request completes, shareReplay(1) stores the result (the list of products).
+// If another subscriber subscribes to listProducts() before a refresh is triggered, they receive the cached result immediately.
+// Clearing the Cache:
+
+// The cache is not explicitly cleared by shareReplay. Instead, it is replaced whenever the source observable (refreshProducts$) emits a new value.
+// When refreshProducts$.next() is called (e.g., after adding or updating a product), switchMap triggers a new HTTP request, and shareReplay(1) updates its cache with the new result.
+// Avoiding Redundant HTTP Requests:
+
+// If multiple components or services subscribe to listProducts() at the same time, shareReplay(1) ensures that only one HTTP request is made. All subscribers share the same cached result.
